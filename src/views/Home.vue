@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column py-5">
+  <div class="d-flex flex-column py-4 px-2">
     <h1 class="mb-3 m-auto">Recicoin</h1>
     <img class="diuwahiuwafiuwa" src="/favicon.png" alt="logo">
     <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
