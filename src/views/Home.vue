@@ -1,7 +1,7 @@
 <template>
-  <div style="display: flex; flex-direction: column;">
-    <img class="diuwahiuwafiuwa" src="/favicon.png" alt="">
-    <h1>Acesso</h1>
+  <div class="d-flex flex-column py-5">
+    <h1 class="mb-3 m-auto">Recicoin</h1>
+    <img class="diuwahiuwafiuwa" src="/favicon.png" alt="logo">
     <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
       <div>
         <label style="display: block;" for="email">Email</label>
@@ -11,9 +11,12 @@
         <label style="display: block;" for="senha">Senha</label>
         <InputText required id="senha" type="password" v-model="password" />
       </div>
-      <Button type="submit">Entrar</Button>
+      <div class="d-flex flex-column">
+        <Button type="submit">Entrar</Button>
+      </div>
     </form>
-    <RouterLink style="margin-top: 2rem;" :to="{ name: 'register' }">Criar Conta</RouterLink>
+    <RouterLink class="mt-3" :to="{ name: 'register' }">Esqueci minha senha</RouterLink>
+    <RouterLink :to="{ name: 'register' }">Criar Conta</RouterLink>
   </div>
 </template>
 
@@ -48,7 +51,7 @@ export default {
 .fpwakfpowafpowjnaofwa {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .diuwahiuwafiuwa {
