@@ -1,18 +1,8 @@
 <template>
   <div>
-    <h1>Acessar</h1>
-    <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
-      <div>
-        <label style="display: block;" for="email">Email</label>
-        <InputText required id="email" type="email" v-model="email" />
-      </div>
-      <div>
-        <label style="display: block;" for="senha">Senha</label>
-        <InputText required id="senha" type="password" v-model="password" />
-      </div>
-      <Button type="submit">Entrar</Button>
-    </form>
-    <RouterLink :to="{ name: 'register' }">Criar Conta</RouterLink>
+  
+    <h1>Dashboard</h1>
+
   </div>
 </template>
 
