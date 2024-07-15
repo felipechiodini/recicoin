@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h1>Acessar</h1>
+  <div style="display: flex; flex-direction: column;">
+    <img class="diuwahiuwafiuwa" src="/favicon.png" alt="">
+    <h1>Acesso</h1>
     <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
       <div>
         <label style="display: block;" for="email">Email</label>
@@ -12,7 +13,7 @@
       </div>
       <Button type="submit">Entrar</Button>
     </form>
-    <RouterLink :to="{ name: 'register' }">Criar Conta</RouterLink>
+    <RouterLink style="margin-top: 2rem;" :to="{ name: 'register' }">Criar Conta</RouterLink>
   </div>
 </template>
 
@@ -48,6 +49,12 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.diuwahiuwafiuwa {
+  width: 50%;
+  margin: auto;
+  object-fit: cover;
 }
 
 
