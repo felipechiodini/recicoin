@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap-utilities.min.css'
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
 import 'bootstrap/dist/css/bootstrap-reboot.min.css'
 import './assets/main.css'
+import 'primeicons/primeicons.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
