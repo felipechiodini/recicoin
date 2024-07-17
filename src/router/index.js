@@ -20,7 +20,7 @@ const router = createRouter({
     },
     {
       path: '/map',
-      name: 'dashboard',
+      name: 'map',
       component: () => import('@/views/Map.vue')
     }
   ]
