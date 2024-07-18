@@ -1,11 +1,13 @@
 <template>
   <div class="container pb-5">
     <div class="row px-2 py-4">
-      <div class="col">
-        <h3>Olá, Felipe</h3>
+      <div class="col-auto">
+        <h3 class="m-0">Olá, Felipe</h3>
+      </div>
+      <div class="col-auto ms-auto">
+        <Avatar shape="circle" label="F" @click="$router.push({ name: 'profile' })" />
       </div>
     </div>
-
     <div class="p-4 shadow-lg rounded mx-2 my-3 row">
       <div class="col p-0">
         <h6 class="m-0 waiohfwaiufhwa">Seus Pontos</h6>
@@ -15,12 +17,11 @@
         Solicitar Resgate
       </Button>
     </div>
-
-    <div class="d-flex mx-4 mb-3 mt-5">
+    <div class="d-flex mx-2 mb-3 mt-5">
       <h5>Extrato</h5>
-      <Button class="ms-auto" size="small">
+      <Button class="ms-auto" size="small" @click="show2 = true">
         <span class="pi pi-truck"></span>
-        Nova Coleta
+        Solicitar Coleta
       </Button>
     </div>
     <div class="d-flex flex-column gap-3 mx-4">
@@ -33,27 +34,10 @@
           <span class="d-block">Pontos: {{ Math.round(Math.random() * 100) }}</span>
           <small>07/07/2024</small>
         </div>
-
       </div>
     </div>
-
-    <div class="model p-3" :class="{ 'show': show }">
-      <Button @click="show = false" class="mb-3">
-        <i class="pi pi-angle-left"></i>
-      </Button>
-      <h1>Trocar meus pontos</h1>
-      <span>Quantos pontos desejá utilizar?</span>
-      <InputText style="height: 70px;" type="text" v-model="points" />
-      <div class="d-flex justify-content-around my-3">
-        <Button size="small">+ 100</Button>
-        <Button size="small">+ 300</Button>
-        <Button size="small">+ 500</Button>
-      </div>
-      <h5>Você receberá: R$<strong>{{ 50 }}</strong></h5>
-      <Button class="w-100 mt-3">Resgatar</Button>
-    </div>
-
-
+    <RescuePoints v-model="show" />
+    <NewCollect v-model="show2" />
   </div>
 </template>
 
@@ -62,17 +46,22 @@ import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button'
+import RescuePoints from '@/components/RescuePoints.vue'
+import NewCollect from '@/components/NewCollect.vue'
 
 export default {
   components: {
     FloatLabel,
     InputText,
     Avatar,
-    Button
+    Button,
+    RescuePoints,
+    NewCollect
   },
   data: () => {
     return {
       show: false,
+      show2: false,
       email: null,
       password: null,
       points: 0
@@ -103,23 +92,6 @@ export default {
 
 .waiohfwaiufhwa {
   font-size: .9rem;
-}
-
-
-.model {
-  display: none;
-  position: fixed;
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  transition: all 1s;
-}
-
-.model.show {
-  display: block;
 }
 
 </style>
