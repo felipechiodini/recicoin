@@ -25,12 +25,28 @@
       </Button>
     </div>
     <div class="d-flex flex-column gap-3 mx-4">
+
+      <div class="row align-items-center rounded border py-3 px-1">
+        <div class="col-auto text-center">
+          <span class="pi pi-info-circle"></span>
+        </div>
+        <div class="col">
+          <strong class="d-block">Coleta: 4956</strong>
+          <Badge value="Pendente" size="small" severity="warn"></Badge>
+          <span class="d-block">Aguardando rota</span>
+        </div>
+      </div>
+
       <div class="row align-items-center rounded border py-3 px-1" v-for="i in 4" :key="i">
         <div class="col-auto text-center">
           <span class="pi pi-check-circle"></span>
         </div>
         <div class="col">
-          <strong class="d-block">Coleta realizada</strong>
+
+          <div class="d-flex gap-2">
+            <strong class="d-block">Coleta: {{ Math.round(Math.random() * 10000) }}</strong>
+          </div>
+          <Badge value="Finalizada" size="small" severity="success"></Badge>
           <span class="d-block">Pontos: {{ Math.round(Math.random() * 100) }}</span>
           <small>07/07/2024</small>
         </div>
@@ -46,6 +62,7 @@ import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button'
+import Badge from 'primevue/badge'
 import RescuePoints from '@/components/RescuePoints.vue'
 import NewCollect from '@/components/NewCollect.vue'
 
@@ -55,6 +72,7 @@ export default {
     InputText,
     Avatar,
     Button,
+    Badge,
     RescuePoints,
     NewCollect
   },
