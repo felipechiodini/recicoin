@@ -26,7 +26,7 @@
     </div>
     <div class="d-flex flex-column gap-3 mx-4">
 
-      <div class="row align-items-center rounded border py-3 px-1">
+      <div class="row align-items-center rounded border py-3 px-1" @click="show3 = true">
         <div class="col-auto text-center">
           <span class="pi pi-info-circle"></span>
         </div>
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="row align-items-center rounded border py-3 px-1" v-for="i in 4" :key="i">
+      <div class="row align-items-center rounded border py-3 px-1" v-for="i in 4" :key="i" @click="show3 = true">
         <div class="col-auto text-center">
           <span class="pi pi-check-circle"></span>
         </div>
@@ -54,6 +54,7 @@
     </div>
     <RescuePoints v-model="show" />
     <NewCollect v-model="show2" />
+    <CollectDetails v-model="show3" />
   </div>
 </template>
 
@@ -65,6 +66,7 @@ import Button from 'primevue/button'
 import Badge from 'primevue/badge'
 import RescuePoints from '@/components/RescuePoints.vue'
 import NewCollect from '@/components/NewCollect.vue'
+import CollectDetails from '@/components/CollectDetails.vue'
 
 export default {
   components: {
@@ -74,12 +76,14 @@ export default {
     Button,
     Badge,
     RescuePoints,
-    NewCollect
+    NewCollect,
+    CollectDetails
   },
   data: () => {
     return {
       show: false,
       show2: false,
+      show3: false,
       email: null,
       password: null,
       points: 0
