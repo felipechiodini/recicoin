@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div class="d-flex flex-column py-4">
-      <h1 class="mb-3 m-auto">Recicoin</h1>
-      <img class="diuwahiuwafiuwa" src="/favicon.png" alt="logo">
+      <img class="diuwahiuwafiuwa" src="/recicoin.png" alt="logo">
       <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
         <div>
           <label style="display: block;" for="email">Email</label>
