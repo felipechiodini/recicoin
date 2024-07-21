@@ -9,14 +9,19 @@ const router = createRouter({
       component: () => import('@/views/Home.vue')
     },
     {
+      path: '/entrar',
+      name: 'login',
+      component: () => import('@/views/Login.vue')
+    },
+    {
+      path: '/esqueci-minha-senha',
+      name: 'forget-password',
+      component: () => import('@/views/ForgetPassword.vue')
+    },
+    {
       path: '/cadastro',
       name: 'register',
       component: () => import('@/views/Register.vue')
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/views/Dashboard.vue')
     },
     {
       path: '/perfil',
