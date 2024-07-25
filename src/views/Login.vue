@@ -12,7 +12,9 @@
           <InputText required id="senha" type="password" v-model="password" />
         </div>
         <div class="d-flex flex-column">
-          <Button type="submit">Entrar</Button>
+          <Button type="submit" :loading="loading">
+            Entrar
+          </Button>
         </div>
       </form>
       <div class="d-flex flex-column gap-2 mt-4">
@@ -31,6 +33,9 @@
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import Button from 'primevue/button'
+import Api from '@/js/api.js'
+import { mapActions } from 'pinia'
+import { useUserStore } from '@/stores/user'
 
 export default {
   components: {
@@ -41,12 +46,24 @@ export default {
   data: () => {
     return {
       email: null,
-      password: null
+      password: null,
+      loading: false
     }
   },
   methods: {
+    ...mapActions(useUserStore, ['setToken']),
     onSubmit() {
-      this.$router.push({ name: 'dashboard' })
+      this.loading = true
+      Api.post('/login', {
+        email: this.email,
+        password: this.password
+      })
+      .then(({ data }) => {
+        this.setToken(data.token)
+        this.$router.push({ name: 'dashboard' })
+      })
+      .finally(() => this.loading = false)
+
     }
   }
 }

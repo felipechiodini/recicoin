@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import Router from '@/router'
-import { request } from '@/js/api.js'
+import api from '@/js/api.js'
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -48,7 +48,7 @@ export const useUserStore = defineStore('user', {
       this.menus = menus
     },
     logout(callback) {
-      request().post('auth/logout').then(() => {
+      api.post('auth/logout').then(() => {
         localStorage.clear()
         Router.push({ name: 'auth.login' })
         callback(false)
