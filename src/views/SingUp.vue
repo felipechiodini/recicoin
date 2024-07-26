@@ -1,18 +1,26 @@
 <template>
   <div class="container">
-    <Logo />
+    <!-- <Logo /> -->
     <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
       <div>
         <label for="name">Nome</label>
-        <InputText required id="name" type="text" v-model="name" />
+        <InputText id="name" type="text" v-model="name" />
       </div>
       <div>
         <label for="email">Email</label>
-        <InputText required id="email" type="email" v-model="email" />
+        <InputText id="email" type="email" v-model="email" />
+      </div>
+      <div>
+        <label for="cpf">CPF</label>
+        <InputText id="cpf" type="text" v-model="document" />
+      </div>
+      <div>
+        <label for="celular">Celular</label>
+        <InputText id="celular" type="text" v-model="cellphone" />
       </div>
       <div>
         <label for="senha">Senha</label>
-        <InputText required id="senha" type="password" v-model="password" />
+        <InputText id="senha" type="password" v-model="password" />
       </div>
       <Button type="submit" :loading="loading">
         Cadastrar
@@ -42,15 +50,19 @@ export default {
     return {
       name: null,
       email: null,
+      document: null,
+      cellphone: null,
       password: null,
       loading: false
     }
   },
   methods: {
     onSubmit() {
-      api.post('/register', {
+      api.post('sing-up', {
         name: this.name,
         email: this.email,
+        document: this.document,
+        cellphone: this.cellphone,
         password: this.password
       }).then(({ data }) => {
         this.setToken(data.token)

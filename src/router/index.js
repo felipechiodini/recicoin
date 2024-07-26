@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: '/cadastro',
       name: 'register',
-      component: () => import('@/views/Register.vue')
+      component: () => import('@/views/SingUp.vue')
     }
   ]
 })
