@@ -11,11 +11,9 @@ import Aura from '@primevue/themes/aura'
 import App from './App.vue'
 import router from './router'
 import ConfirmationService from 'primevue/confirmationservice';
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const app = createApp(App)
-
-
 
 app.use(PrimeVue, {
   theme: {
@@ -23,8 +21,11 @@ app.use(PrimeVue, {
   }
 })
 
-app.use(ConfirmationService);
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
+app.use(ConfirmationService)
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

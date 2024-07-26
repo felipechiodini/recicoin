@@ -19,10 +19,14 @@
       </form>
       <div class="d-flex flex-column gap-2 mt-4">
         <div>
-          <RouterLink :to="{ name: 'forget-password' }">Esqueci minha senha</RouterLink>
+          <RouterLink :to="{ name: 'forget-password' }">
+            Esqueci minha senha
+          </RouterLink>
         </div>
         <div>
-          <RouterLink :to="{ name: 'register' }">Criar Conta</RouterLink>
+          <RouterLink :to="{ name: 'register' }">
+            Criar Conta
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -51,7 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useUserStore, ['setToken']),
+    ...mapActions(useUserStore, ['setToken', 'setUser']),
     onSubmit() {
       this.loading = true
       Api.post('/login', {
@@ -60,10 +64,10 @@ export default {
       })
       .then(({ data }) => {
         this.setToken(data.token)
-        this.$router.push({ name: 'dashboard' })
+        this.setUser(data.user)
+        this.$router.push({ name: 'home' })
       })
       .finally(() => this.loading = false)
-
     }
   }
 }
