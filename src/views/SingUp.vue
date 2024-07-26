@@ -1,26 +1,33 @@
 <template>
   <div class="container">
-    <!-- <Logo /> -->
+    <div class="text-center my-5">
+      <Logo :size="10" />
+    </div>
     <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
       <div>
         <label for="name">Nome</label>
         <InputText id="name" type="text" v-model="name" />
+        <Message v-if="errors.has('name')" severity="error">{{ errors.get('name') }}</Message>
       </div>
       <div>
         <label for="email">Email</label>
         <InputText id="email" type="email" v-model="email" />
+        <Message v-if="errors.has('email')" severity="error">{{ errors.get('email') }}</Message>
       </div>
       <div>
         <label for="cpf">CPF</label>
         <InputText id="cpf" type="text" v-model="document" />
+        <Message v-if="errors.has('document')" severity="error">{{ errors.get('document') }}</Message>
       </div>
       <div>
         <label for="celular">Celular</label>
         <InputText id="celular" type="text" v-model="cellphone" />
+        <Message v-if="errors.has('cellphone')" severity="error">{{ errors.get('cellphone') }}</Message>
       </div>
       <div>
         <label for="senha">Senha</label>
         <InputText id="senha" type="password" v-model="password" />
+        <Message v-if="errors.has('password')" severity="error">{{ errors.get('password') }}</Message>
       </div>
       <Button type="submit" :loading="loading">
         Cadastrar
@@ -38,13 +45,16 @@
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Logo from '@/components/icons/Logo.vue'
+import Message from 'primevue/message'
 import api from '@/js/api.js'
+import { ErrorBag } from '@/js/error'
 
 export default {
   components: {
     InputText,
     Button,
-    Logo
+    Logo,
+    Message
   },
   data: () => {
     return {
@@ -53,7 +63,8 @@ export default {
       document: null,
       cellphone: null,
       password: null,
-      loading: false
+      loading: false,
+      errors: new ErrorBag()
     }
   },
   methods: {
@@ -64,9 +75,11 @@ export default {
         document: this.document,
         cellphone: this.cellphone,
         password: this.password
-      }).then(({ data }) => {
+      })
+      .then(({ data }) => {
         this.setToken(data.token)
       })
+      .catch((errors) => this.errors.record(errors.response.data.errors))
     }
   }
 }

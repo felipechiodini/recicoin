@@ -4,12 +4,14 @@
       <img class="diuwahiuwafiuwa" src="/recicoin.png" alt="logo">
       <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
         <div>
-          <label style="display: block;" for="email">Email</label>
-          <InputText required id="email" type="email" v-model="email" />
+          <label for="email">Email</label>
+          <InputText id="email" type="text" v-model="email" />
+          <Message v-if="errors.has('email')" severity="error">{{ errors.get('email') }}</Message>
         </div>
         <div>
-          <label style="display: block;" for="senha">Senha</label>
-          <InputText required id="senha" type="password" v-model="password" />
+          <label for="senha">Senha</label>
+          <InputText id="senha" type="password" v-model="password" />
+          <Message v-if="errors.has('password')" severity="error">{{ errors.get('password') }}</Message>
         </div>
         <div class="d-flex flex-column">
           <Button type="submit" :loading="loading">
@@ -37,21 +39,26 @@
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import Button from 'primevue/button'
+import Message from 'primevue/message'
 import Api from '@/js/api.js'
 import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user'
+import { ErrorBag } from '@/js/error'
 
 export default {
   components: {
     FloatLabel,
     InputText,
-    Button
+    Button,
+    Message
   },
   data: () => {
     return {
       email: null,
       password: null,
-      loading: false
+      loading: false,
+      submitted: false,
+      errors: new ErrorBag()
     }
   },
   methods: {
@@ -66,6 +73,11 @@ export default {
         this.setToken(data.token)
         this.setUser(data.user)
         this.$router.push({ name: 'home' })
+      })
+      .catch((errors) => {
+
+        this.errors.record(errors.response.data)
+
       })
       .finally(() => this.loading = false)
     }
