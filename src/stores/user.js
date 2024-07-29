@@ -9,11 +9,9 @@ export const useUserStore = defineStore('user', {
       token: null
     }
   },
-  getters: () => {
-    return {
-      firstName() {
-        return this.user?.name.split(' ')[0]
-      }
+  getters: {
+    firstName(state) {
+      return state.user?.name.split(' ')[0]
     }
   },
   actions: {

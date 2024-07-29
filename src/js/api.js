@@ -4,21 +4,23 @@ import router from '@/router'
 
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
+  withCredentials: true,
+  withXSRFToken: true,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   }
 })
 
-// axiosInstance.interceptors.request.use(request => {
-//   const userStore = useUserStore()
+axiosInstance.interceptors.request.use(request => {
+  const userStore = useUserStore()
 
-//   if (userStore.token) {
-//     request.headers.Authorization = 'Bearer ' + userStore.token
-//   }
+  if (userStore.token) {
+    request.headers.Authorization = 'Bearer ' + userStore.token
+  }
 
-//   return request
-// }, (error) => Promise.reject(error))
+  return request
+}, (error) => Promise.reject(error))
 
 // axiosInstance.interceptors.response.use(function (response) {
 //   return response

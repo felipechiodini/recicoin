@@ -2,7 +2,7 @@
   <div class="container pb-5">
     <div class="row px-2 py-4">
       <div class="col-auto">
-        <h3 class="m-0">Olá, {{ user.firstName }}</h3>
+        <h3 class="m-0">Olá, {{ firstName }}</h3>
       </div>
       <div class="col-auto ms-auto">
         <Avatar shape="circle" label="F" @click="$router.push({ name: 'profile' })" />
@@ -66,6 +66,7 @@ import NewCollect from '@/components/NewCollect.vue'
 import CollectDetails from '@/components/CollectDetails.vue'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user.js'
+import api from '@/js/api.js'
 
 export default {
   components: {

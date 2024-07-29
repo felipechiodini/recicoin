@@ -64,22 +64,28 @@ export default {
   methods: {
     ...mapActions(useUserStore, ['setToken', 'setUser']),
     onSubmit() {
-      this.loading = true
-      Api.post('/login', {
-        email: this.email,
-        password: this.password
-      })
-      .then(({ data }) => {
-        this.setToken(data.token)
-        this.setUser(data.user)
-        this.$router.push({ name: 'home' })
-      })
-      .catch((errors) => {
 
-        this.errors.record(errors.response.data)
+      Api.get('/sanctum/csrf-cookie')
+        .then(() => {
+          this.loading = true
+          Api.post('/login', {
+            email: this.email,
+            password: this.password
+          })
+          .then(({ data }) => {
+            this.setToken(data.token)
+            this.setUser(data.user)
+            this.$router.push({ name: 'home' })
+          })
+          .catch((errors) => {
+    
+            this.errors.record(errors.response.data)
+    
+          })
+          .finally(() => this.loading = false)
+      });
 
-      })
-      .finally(() => this.loading = false)
+
     }
   }
 }
