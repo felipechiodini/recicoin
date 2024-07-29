@@ -65,7 +65,7 @@ export default {
     ...mapActions(useUserStore, ['setToken', 'setUser']),
     onSubmit() {
 
-      Api.get('/sanctum/csrf-cookie')
+      Api.get('csrf-cookie')
         .then(() => {
           this.loading = true
           Api.post('/login', {
