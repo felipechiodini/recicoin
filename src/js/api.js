@@ -17,4 +17,11 @@ axiosInstance.interceptors.request.use(config => {
   return config
 })
 
+axiosInstance.interceptors.response.use(() => {}, (error) => {
+  if (error.response.status === 401) {
+    localStorage.removeItem('user')
+  }
+  return Promise.reject(error)
+})
+
 export default axiosInstance
