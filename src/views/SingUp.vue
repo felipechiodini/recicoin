@@ -16,12 +16,12 @@
       </div>
       <div>
         <label for="cpf">CPF</label>
-        <InputText id="cpf" type="text" v-model="document" />
+        <InputText id="cpf" type="text" v-model="document" v-maska="'###.###.###-##'" />
         <Message v-if="errors.has('document')" severity="error">{{ errors.get('document') }}</Message>
       </div>
       <div>
         <label for="celular">Celular</label>
-        <InputText id="celular" type="text" v-model="cellphone" />
+        <InputText id="celular" type="text" v-model="cellphone" v-maska="'(##) #####-####'" />
         <Message v-if="errors.has('cellphone')" severity="error">{{ errors.get('cellphone') }}</Message>
       </div>
       <div>
