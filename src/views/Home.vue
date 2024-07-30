@@ -104,7 +104,7 @@ export default {
           this.extracts = data.extracts
           this.points = data.points
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log('dd', err))
         .finally(() => this.loading = false)
     },
     appendExtract(collect) {
