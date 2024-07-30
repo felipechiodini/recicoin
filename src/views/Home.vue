@@ -1,56 +1,55 @@
 <template>
   <div class="container pb-5">
-    <div class="row px-2 py-4">
-      <div class="col-auto">
-        <h3 class="m-0">Olá, {{ firstName }}</h3>
-      </div>
-      <div class="col-auto ms-auto">
-        <Avatar shape="circle" label="F" @click="$router.push({ name: 'profile' })" />
+    <div class="row py-4">
+      <div class="d-flex gap-2 align-items-center">
+        <button style="border: none; color: #000; background-color: transparent">
+          <i class="pi pi-bars"></i>
+        </button>
+        <h3 class="m-0">
+          Olá, {{ firstName }}
+        </h3>
       </div>
     </div>
     <div class="p-4 shadow-lg rounded mx-2 my-3 row">
       <div class="col p-0">
-        <h6 class="m-0 waiohfwaiufhwa">Seus Pontos</h6>
+        <h6 class="m-0 waiohfwaiufhwa">Saldo</h6>
         <span class="points">{{ points }}</span>
       </div>
       <Button @click="show = true" class="col-auto" size="small">
         Solicitar Resgate
       </Button>
     </div>
+
     <div class="d-flex mx-2 mb-3 mt-5">
-      <h5>Extrato</h5>
-      <Button class="ms-auto" size="small" @click="show2 = true">
+      <h5>Transações</h5>
+      <!-- <Button class="ms-auto" size="small" @click="show2 = true">
         <span class="pi pi-truck"></span>
         Solicitar Coleta
-      </Button>
+      </Button> -->
     </div>
     <div class="d-flex flex-column gap-3 mx-4">
-      <div class="row align-items-center rounded border py-3 px-1" @click="show3 = true">
-        <div class="col-auto text-center">
-          <span class="pi pi-info-circle"></span>
-        </div>
-        <div class="col">
-          <strong class="d-block">Coleta: 4956</strong>
-          <Badge value="Pendente" size="small" severity="warn"></Badge>
-          <span class="d-block">Aguardando rota</span>
-        </div>
-      </div>
-      <div class="row align-items-center rounded border py-3 px-1" v-for="(extract, key) in extracts" :key="key" @click="show3 = true">
-        <div class="col-auto text-center">
-          <span class="pi pi-check-circle"></span>
-        </div>
-        <div class="col">
-          <div class="d-flex gap-2">
-            <strong class="d-block">Coleta: {{ extract.id }}</strong>
+
+      <template v-if="extracts.length">
+        <div class="row align-items-center rounded border py-3 px-1" v-for="(extract, key) in extracts" :key="key" @click="show3 = true">
+          <div class="col-auto text-center">
+            <span class="pi pi-check-circle"></span>
           </div>
-          <Badge value="Finalizada" size="small" severity="success" />
-          <span class="d-block">Pontos: {{ extract.points }}</span>
-          <small>{{ extract.date }}</small>
+          <div class="col">
+            <div class="d-flex gap-2">
+              <strong class="d-block">Coleta: {{ extract.id }}</strong>
+            </div>
+            <Badge value="Finalizada" size="small" severity="success" />
+            <span class="d-block">valor: {{ extract.points }}</span>
+            <small>{{ extract.date }}</small>
+          </div>
         </div>
-      </div>
+      </template>
+      <template v-else>
+        Não encontramos nenhum item...
+      </template>
     </div>
     <RescuePoints v-model="show" />
-    <NewCollect v-model="show2" />
+    <NewCollect v-model="show2" @success="appendExtract" />
     <CollectDetails v-model="show3" />
   </div>
 </template>
@@ -107,6 +106,9 @@ export default {
         })
         .catch(err => console.log(err))
         .finally(() => this.loading = false)
+    },
+    appendExtract(collect) {
+      this.extracts.push(collect)
     }
   }
 }
