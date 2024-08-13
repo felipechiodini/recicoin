@@ -3,14 +3,15 @@
     <Button @click="close()" class="mb-3">
       <i class="pi pi-angle-left"></i>
     </Button>
-    <h1>Trocar meus pontos</h1>
-    <span>Quantos pontos desejá utilizar?</span>
+    <h1>Regatar valor</h1>
+    <small>Informe o valor que deseja regatar</small>
     <InputText style="height: 70px; font-size: 2rem;" type="text" v-model="points" />
     <div class="d-flex justify-content-around my-3">
       <Button size="small" @click="addPoints(b.value)" v-for="b in buttons" :key="b">+ {{ b.value }}</Button>
     </div>
-    <h5>Você receberá: R$<strong>{{ 50 }}</strong></h5>
-    <Button class="w-100 mt-3">Resgatar</Button>
+    <Button class="w-100 mt-3" @click="onSubmit()">
+      Resgatar
+    </Button>
   </div>
 </template>
 
@@ -32,6 +33,7 @@ export default {
     return {
       points: 0,
       show: true,
+      loading: false,
       buttons: [
         { value: 100 },
         { value: 300 },
@@ -43,6 +45,15 @@ export default {
     addPoints(quantity) {
       this.points = parseInt(this.points) + parseInt(quantity)
     },
+    onSubmit() {
+      this.loading = true
+      api.post('rescue/points', { points: this.points })
+        .then(({ data }) => {
+          this.close()
+          this.$emit('success', data.rescue)
+        })
+        .finally(() => this.loading = false)
+    }
     close() {
       this.$emit('update:modelValue', false)
     }
