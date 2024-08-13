@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <div class="text-center my-5">
-      <Logo :size="10" />
+    <div class="text-center mt-5">
+      <Logo />
     </div>
+    <h5 class="mt-2">Criar minha conta</h5>
+    <small>Criei sua conta para ter acesso ao nosso sistema, é grátis.</small>
     <form class="fpwakfpowafpowjnaofwa" @submit.prevent="onSubmit()">
       <div>
         <label for="name">Nome</label>
