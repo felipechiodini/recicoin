@@ -5,11 +5,13 @@
     </Button>
     <h1>Nova Coleta</h1>
     <span>Selecione o endereço da coleta</span>
+
     <Button size="small">
       Novo Endereço
     </Button>
-    <div class="d-flex flex-column my-3 border rounded p-3">
-      <span>Cidade: <strong>Jaraguá do Sul</strong></span>
+
+    <div class="d-flex flex-column my-3 border p-2" @click="selectAddress(address)" :class="{ 'active': isSelectedAddress(address) }" v-for="(address, key) in userAddresses" :key="key">
+      <span>Cidade: <strong>{{ address.city }}</strong></span>
       <span>Bairro: <strong>João Pessoa</strong></span>
       <span>Rua: <strong>Rua Hilda Brach Bauer</strong></span>
       <span>Número: <strong>421</strong></span>
@@ -20,13 +22,18 @@
     <div>
       <InputText  />
     </div>
-    <Button class="w-100 mt-3">Confirmar</Button>
+    <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
+      Confirmar
+    </Button>
   </div>
 </template>
 
 <script>
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
+import { mapState } from 'pinia'
+import { useUserStore } from '@/stores/user'
+import api from '@/js/api.js'
 
 export default {
   components: {
@@ -42,6 +49,8 @@ export default {
     return {
       points: 0,
       show: true,
+      loading: false,
+      selectedAddressId: null,
       buttons: [
         { value: 100 },
         { value: 300 },
@@ -49,9 +58,27 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState(useUserStore, { userAddresses: 'addresses' })
+  },
   methods: {
     addPoints(quantity) {
       this.points = parseInt(this.points) + parseInt(quantity)
+    },
+    isSelectedAddress(address) {
+      return this.selectedAddressId === address.id 
+    },
+    selectAddress(address) {
+      this.selectedAddressId = address.id
+    },
+    onSubmit() {
+      this.loading = true
+      api.post('collect/request')
+        .then(({ data }) => {
+          this.close()
+          this.$emit('success', data.collect)
+        })
+        .finally(() => this.loading = false)
     },
     close() {
       this.$emit('update:modelValue', false)
@@ -78,6 +105,11 @@ export default {
 
 .model.show {
   display: block;
+}
+
+
+.active {
+  background-color: aqua;
 }
 
 </style>
