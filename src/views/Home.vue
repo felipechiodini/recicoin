@@ -13,7 +13,7 @@
     <div class="p-4 shadow-lg rounded mx-2 my-3 row">
       <div class="col p-0">
         <h6 class="m-0 waiohfwaiufhwa">Saldo</h6>
-        <span class="points">{{ points }}</span>
+        <span class="balance">{{ balance }}</span>
       </div>
       <Button @click="show = true" class="col-auto" size="small">
         Solicitar Resgate
@@ -34,7 +34,7 @@
               <strong class="d-block">Coleta: {{ extract.id }}</strong>
             </div>
             <Badge value="Finalizada" size="small" severity="success" />
-            <span class="d-block">valor: {{ extract.points }}</span>
+            <!-- <span class="d-block">valor: {{ extract.points }}</span> -->
             <small>{{ extract.date }}</small>
           </div>
         </div>
@@ -43,7 +43,7 @@
         Não encontramos nenhum item...
       </template>
     </div>
-    <RescuePoints v-model="show" />
+    <Withdraw v-model="show" />
     <NewCollect v-model="show2" @success="appendExtract" />
     <CollectDetails v-model="show3" />
   </div>
@@ -55,7 +55,7 @@ import FloatLabel from 'primevue/floatlabel'
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button'
 import Badge from 'primevue/badge'
-import RescuePoints from '@/components/RescuePoints.vue'
+import Withdraw from '@/components/Withdraw.vue'
 import NewCollect from '@/components/RequestCollect.vue'
 import CollectDetails from '@/components/CollectDetails.vue'
 import { mapState } from 'pinia'
@@ -69,7 +69,7 @@ export default {
     Avatar,
     Button,
     Badge,
-    RescuePoints,
+    Withdraw,
     NewCollect,
     CollectDetails
   },
@@ -80,7 +80,7 @@ export default {
       show3: false,
       email: null,
       password: null,
-      points: 0,
+      balance: null,
       loading: false,
       extracts: [],
     }
@@ -97,7 +97,7 @@ export default {
       api.get('extract')
         .then(({ data }) => {
           this.extracts = data.extracts
-          this.points = data.points
+          this.balance = data.balance
         })
         .catch(err => console.log('dd', err))
         .finally(() => this.loading = false)
@@ -118,7 +118,7 @@ export default {
   gap: 10px;
 }
 
-.points {
+.balance {
   color: black;
   font-size: 2rem;
 }
