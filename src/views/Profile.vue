@@ -28,21 +28,6 @@
         <Button severity="danger" class="w-100" size="small" @click="requireConfirmation($event)">
           Excluir
         </Button>
-
-        <ConfirmPopup group="headless">
-          <template #container="{ message, acceptCallback, rejectCallback }">
-            <div class="rounded p-4">
-                <span>{{ message.message }}</span>
-                <div class="flex items-center gap-2 mt-4">
-                    <Button label="Save" @click="acceptCallback" size="small"></Button>
-                    <Button label="Cancel" outlined @click="rejectCallback" severity="secondary" size="small" text></Button>
-                </div>
-            </div>
-          </template>
-        </ConfirmPopup>
-
-
-
       </div>
     </div>
 

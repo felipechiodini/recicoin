@@ -22,9 +22,19 @@ const router = createRouter({
           component: () => import('@/views/Profile.vue')
         },
         {
+          path: '/enderecos',
+          name: 'addresses',
+          component: () => import('@/views/Addresses.vue')
+        },
+        {
           path: '/coletas',
           name: 'collects',
           component: () => import('@/views/Collects.vue')
+        },
+        {
+          path: '/saques',
+          name: 'withdrawals',
+          component: () => import('@/views/Withdrawals.vue')
         }
       ]
     },
@@ -46,18 +56,18 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    const user = useUserStore()
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requiresAuth) {
+//     const user = useUserStore()
     
-    if (user.token !== null) {
-      next()
-    } else {
-      next({ name: 'login' })
-    }
-  } else {
-    next()
-  }
-})
+//     if (user.token !== null) {
+//       next()
+//     } else {
+//       next({ name: 'login' })
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
