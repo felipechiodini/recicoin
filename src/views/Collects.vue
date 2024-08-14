@@ -1,10 +1,13 @@
 <template>
-  <div>
-    kkkkkkkk
-  </div>
+    <div>
+        dddd
+    </div>
 </template>
 
 <script>
+
 export default {
+    
 }
+
 </script>

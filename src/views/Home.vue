@@ -2,7 +2,7 @@
   <div class="container pb-5">
     <div class="row py-4">
       <div class="d-flex gap-2 align-items-center">
-        <button style="border: none; color: #000; background-color: transparent">
+        <button style="border: none; color: #000; background-color: transparent" @click="$sidebar.open()">
           <i class="pi pi-bars"></i>
         </button>
         <h3 class="m-0">
@@ -21,14 +21,9 @@
     </div>
 
     <div class="d-flex mx-2 mb-3 mt-5">
-      <h5>Transações</h5>
-      <!-- <Button class="ms-auto" size="small" @click="show2 = true">
-        <span class="pi pi-truck"></span>
-        Solicitar Coleta
-      </Button> -->
+      <h5>Resumo</h5>
     </div>
     <div class="d-flex flex-column gap-3 mx-4">
-
       <template v-if="extracts.length">
         <div class="row align-items-center rounded border py-3 px-1" v-for="(extract, key) in extracts" :key="key" @click="show3 = true">
           <div class="col-auto text-center">
@@ -61,7 +56,7 @@ import Avatar from 'primevue/avatar';
 import Button from 'primevue/button'
 import Badge from 'primevue/badge'
 import RescuePoints from '@/components/RescuePoints.vue'
-import NewCollect from '@/components/NewCollect.vue'
+import NewCollect from '@/components/RequestCollect.vue'
 import CollectDetails from '@/components/CollectDetails.vue'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user.js'

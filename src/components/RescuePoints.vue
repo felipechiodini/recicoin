@@ -5,9 +5,9 @@
     </Button>
     <h1>Regatar valor</h1>
     <small>Informe o valor que deseja regatar</small>
-    <InputText style="height: 70px; font-size: 2rem;" type="text" v-model="points" />
+    <InputText style="height: 70px; font-size: 2rem;" type="text" v-model="value" />
     <div class="d-flex justify-content-around my-3">
-      <Button size="small" @click="addPoints(b.value)" v-for="b in buttons" :key="b">+ {{ b.value }}</Button>
+      <Button size="small" @click="addValue(b.value)" v-for="b in buttons" :key="b">+ {{ b.value }}</Button>
     </div>
     <Button class="w-100 mt-3" @click="onSubmit()">
       Resgatar
@@ -18,6 +18,7 @@
 <script>
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
+import Api from '@/js/api.js'
 
 export default {
   components: {
@@ -31,7 +32,7 @@ export default {
   },
   data: () => {
     return {
-      points: 0,
+      value: 0,
       show: true,
       loading: false,
       buttons: [
@@ -42,18 +43,18 @@ export default {
     }
   },
   methods: {
-    addPoints(quantity) {
-      this.points = parseInt(this.points) + parseInt(quantity)
+    addValue(quantity) {
+      this.value = parseInt(this.value) + parseInt(quantity)
     },
     onSubmit() {
       this.loading = true
-      api.post('rescue/points', { points: this.points })
+      Api.post('request-whithdraw', { value: this.value })
         .then(({ data }) => {
           this.close()
           this.$emit('success', data.rescue)
         })
         .finally(() => this.loading = false)
-    }
+    },
     close() {
       this.$emit('update:modelValue', false)
     }

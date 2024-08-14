@@ -13,6 +13,7 @@ import router from './router'
 import ConfirmationService from 'primevue/confirmationservice';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { vMaska } from "maska/vue"
+import sidebar from './js/sidebar'
 
 const app = createApp(App)
 
@@ -29,5 +30,6 @@ app.directive('maska', vMaska)
 app.use(ConfirmationService)
 app.use(pinia)
 app.use(router)
+app.use(sidebar)
 
 app.mount('#app')

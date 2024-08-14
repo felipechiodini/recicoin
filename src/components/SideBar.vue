@@ -1,19 +1,35 @@
 <template>
-  <div class="sidebar">
-    kkkkkkkkkkk
+  <div class="sidebar" :class="{ 'show': $sidebar.opened.value }">
+    <div class="header">
+      <button class="btnclose" @click="$sidebar.close()">
+        <i class="pi pi-times"></i>
+      </button>
+      <a class="btn" @click="goTo('collects')">
+        Coletas
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
-
 export default {
-
+  methods: {
+    goTo(name) {
+      this.$router.push({ name })
+      this.$sidebar.close()
+    }
+  }
 }
 
 </script>
 
-
 <style scoped>
+
+.header {
+  background-color: var(--p-button-primary-background);
+  width: 100%;
+  padding: 1rem;
+}
 
 .sidebar {
   display: none;
@@ -31,5 +47,11 @@ export default {
   display: block;
 }
 
+.btnclose {
+  display: block;
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+}
 
 </style>

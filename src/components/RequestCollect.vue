@@ -6,7 +6,7 @@
     <h1>Nova Coleta</h1>
     <span>Selecione o endereço da coleta</span>
 
-    <Button size="small">
+    <Button size="small" @click="teste = true">
       Novo Endereço
     </Button>
 
@@ -25,6 +25,21 @@
     <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
       Confirmar
     </Button>
+
+
+    <Modal v-model="teste">
+      <InputText v-model="address.cep" />
+      <InputText v-model="address.street" />
+      <InputText v-model="address.number" />
+      <InputText v-model="address.complement" />
+      <InputText v-model="address.neighborhood" />
+      <InputText v-model="address.city" />
+      <InputText v-model="address.state" />
+
+      <Button @click="saveAddress()">
+        Criar endereço
+      </Button>
+    </Modal>
   </div>
 </template>
 
@@ -34,11 +49,13 @@ import Button from 'primevue/button'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import api from '@/js/api.js'
+import Modal from './Modal.vue'
 
 export default {
   components: {
     InputText,
-    Button
+    Button,
+    Modal
   },
   props: {
     modelValue: {
@@ -47,6 +64,7 @@ export default {
   },
   data: () => {
     return {
+      teste: false,
       points: 0,
       show: true,
       loading: false,
@@ -55,7 +73,16 @@ export default {
         { value: 100 },
         { value: 300 },
         { value: 500 }
-      ]
+      ],
+      address: {
+        cep: null,
+        street: null,
+        number: null,
+        complement: null,
+        neighborhood: null,
+        city: null,
+        state: null,
+      }
     }
   },
   computed: {
@@ -73,7 +100,7 @@ export default {
     },
     onSubmit() {
       this.loading = true
-      api.post('collect/request')
+      api.post('collect/request', { address_id: 1 })
         .then(({ data }) => {
           this.close()
           this.$emit('success', data.collect)
@@ -82,6 +109,13 @@ export default {
     },
     close() {
       this.$emit('update:modelValue', false)
+    },
+    saveAddress() {
+      api.post('address', this.address)
+        .then(({ data }) => {
+          this.userAddresses.push(data.address)
+          this.teste = false
+        })
     }
   }
 }
