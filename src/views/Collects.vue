@@ -25,7 +25,7 @@ export default {
   },
   mouted() {
     this.load()
-  }
+  },
   methods: {
     load() {
       this.loading = true
