@@ -10,17 +10,26 @@
       </div>
     </div>
     <span v-else>Carregando...</span>
+    <Button @click="openModalRequest()">
+      Solicitar Coleta
+    </Button>
+    <RequestCollect v-model="kkkkkkkk" />
   </div>
 </template>
 
 <script>
+import RequestCollect from '@/components/RequestCollect.vue';
 import api from '@/js/api.js'
 
 export default {
+  components: {
+    RequestCollect
+  },
   data: () => {
     return {
       loading: false,
-      collects: []
+      collects: [],
+      kkkkkkkk: false
     }
   },
   mouted() {
@@ -33,6 +42,9 @@ export default {
         .then(({ data }) => this.collects = data.collects)
         .catch(err => console.log('erro', err))
         .finally(() => this.loading = false)
+    },
+    openModalRequest() {
+      this.kkkkkkkk = true
     }
   }
 }
