@@ -28,18 +28,43 @@
 
 
     <Modal v-model="teste">
-      <InputText v-model="address.cep" />
-      <InputText v-model="address.street" />
-      <InputText v-model="address.number" />
-      <InputText v-model="address.complement" />
-      <InputText v-model="address.neighborhood" />
-      <InputText v-model="address.city" />
-      <InputText v-model="address.state" />
+      <div class="d-flex flex-column gap-2">
+        <div>
+          <label for="cep">CEP</label>
+          <InputText v-model="address.cep" />
+        </div>
+        <div>
+          <label for="street">Rua</label>
+          <InputText v-model="address.street" />
+        </div>
+        <div>
+          <label for="number">Número</label>
+          <InputText v-model="address.number" />
+        </div>
+        <div>
+          <label for="complement">Complemento</label>
+          <InputText v-model="address.complement" />
+        </div>
+        <div>
+          <label for="neighborhood">Bairro</label>
+          <InputText v-model="address.neighborhood" />
+        </div>
+        <div>
+          <label for="city">Cidade</label>
+          <InputText v-model="address.city" />
+        </div>
+        <div>
+          <label for="state">Estado</label>
+          <InputText v-model="address.state" />
+        </div>
+      </div>
 
-      <Button @click="saveAddress()">
+      <Button class="mt-3" @click="saveAddress()">
         Criar endereço
       </Button>
     </Modal>
+
+    
   </div>
 </template>
 
