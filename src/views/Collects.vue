@@ -2,11 +2,23 @@
   <div>
     <h4>Coletas</h4>
     <div v-if="loading === false">
-      <div v-for="(collect, key) in collects" :key="key">
-        {{ collect.id }}
-        {{ collect.status }}
-        {{ collect.requested_at }}
-        {{ collect.address }}
+      <div class="d-flex flex-column" v-for="(collect, key) in collects" :key="key">
+        <div>
+          {{ collect.id }}
+          {{ collect.status }}
+          {{ collect.requested_at }}
+        </div>
+        <div>
+          <h6>Endereço</h6>
+          <div class="d-flex flex-column">
+            <span>{{ collect.address.cep }}</span>
+            <span>{{ collect.address.street }}</span>
+            <span>{{ collect.address.number }}</span>
+            <span>{{ collect.address.city }}</span>
+            <span>{{ collect.address.state }}</span>
+            <span>{{ collect.address.complement }}</span>
+          </div>
+        </div>
       </div>
     </div>
     <span v-else>Carregando...</span>
