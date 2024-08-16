@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h6>Coletas</h6>
+    <h4>Coletas</h4>
     <div v-if="loading === false">
       <div v-for="(collect, key) in collects" :key="key">
         {{ collect.id }}
@@ -18,12 +18,14 @@
 </template>
 
 <script>
-import RequestCollect from '@/components/RequestCollect.vue';
-import api from '@/js/api.js'
+import RequestCollect from '@/components/RequestCollect.vue'
+import Button from 'primevue/button'
+import Api from '@/js/api.js'
 
 export default {
   components: {
-    RequestCollect
+    RequestCollect,
+    Button,
   },
   data: () => {
     return {
@@ -32,13 +34,13 @@ export default {
       kkkkkkkk: false
     }
   },
-  mouted() {
+  mounted() {
     this.load()
   },
   methods: {
     load() {
       this.loading = true
-      api.get('collect')
+      Api.get('collect')
         .then(({ data }) => this.collects = data.collects)
         .catch(err => console.log('erro', err))
         .finally(() => this.loading = false)
