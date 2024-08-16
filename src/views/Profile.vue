@@ -8,9 +8,10 @@
         <Avatar shape="circle" label="F" @click="$router.push({ name: 'profile' })" />
       </div>
     </div>
-
     <div class="d-flex align-items-end">
-      <h6 class="m-0">Meus Endereços</h6>
+      <h6 class="m-0">
+        Meus Endereços
+      </h6>
       <Button class="ms-auto" size="small">
         Novo Endereço
       </Button>
@@ -30,30 +31,6 @@
         </Button>
       </div>
     </div>
-
-    <Modal class="p-3" v-model="show">
-      <h5>Editar Endereço</h5>
-      <div>
-        <label for="username">CEP</label>
-        <InputText />
-      </div>
-      <label for="username">Rua</label>
-      <InputText />
-      <label for="username">Rua</label>
-      <InputText />
-      <label for="username">Rua</label>
-      <InputText />
-      <label for="username">Rua</label>
-      <InputText />
-      <div class="d-flex gap-3 mt-3">
-        <Button class="w-100" size="small">
-          Salvar
-        </Button>
-        <Button class="w-100" severity="danger" size="small" @click="show = false">
-          Cancelar
-        </Button>
-      </div>
-    </Modal>
   </div>
 </template>
 

@@ -1,55 +1,48 @@
 <template>
-  <div class="container pb-5">
-    <div class="row py-4">
-      <div class="d-flex gap-2 align-items-center">
-        <button style="border: none; color: #000; background-color: transparent" @click="$sidebar.open()">
-          <i class="pi pi-bars"></i>
-        </button>
-        <h3 class="m-0">
-          Olá, {{ firstName }}
-        </h3>
-      </div>
+  <Header />
+  <div class="p-4 shadow-lg rounded mx-2 my-3 row">
+    <div class="col p-0">
+      <h6 class="m-0 waiohfwaiufhwa">
+        Saldo
+      </h6>
+      <span class="balance">
+        {{ balance }}
+      </span>
     </div>
-    <div class="p-4 shadow-lg rounded mx-2 my-3 row">
-      <div class="col p-0">
-        <h6 class="m-0 waiohfwaiufhwa">Saldo</h6>
-        <span class="balance">{{ balance }}</span>
-      </div>
-      <Button @click="show = true" class="col-auto" size="small">
-        Solicitar Resgate
-      </Button>
-    </div>
-
-    <div class="d-flex mx-2 mb-3 mt-5">
-      <h5>Resumo</h5>
-    </div>
-    <div class="d-flex flex-column gap-3 mx-4">
-      <template v-if="extracts.length">
-        <div class="row align-items-center rounded border py-3 px-1" v-for="(extract, key) in extracts" :key="key" @click="show3 = true">
-          <div class="col-auto text-center">
-            <span class="pi pi-check-circle"></span>
-          </div>
-          <div class="col">
-            <div class="d-flex gap-2">
-              <strong class="d-block">Coleta: {{ extract.id }}</strong>
-            </div>
-            <Badge value="Finalizada" size="small" severity="success" />
-            <!-- <span class="d-block">valor: {{ extract.points }}</span> -->
-            <small>{{ extract.date }}</small>
-          </div>
-        </div>
-      </template>
-      <template v-else>
-        Não encontramos nenhum item...
-      </template>
-    </div>
-    <Withdraw v-model="show" />
-    <NewCollect v-model="show2" @success="appendExtract" />
-    <CollectDetails v-model="show3" />
+    <Button @click="show = true" class="col-auto" size="small">
+      Solicitar Resgate
+    </Button>
   </div>
+  <div class="d-flex mx-2 mb-3 mt-5">
+    <h5>Resumo</h5>
+  </div>
+  <div class="d-flex flex-column gap-3 mx-4">
+    <template v-if="transactions.length">
+      <div class="row align-items-center rounded border py-3 px-1" v-for="(transaction, key) in transactions" :key="key" @click="modalCollectDetails = true">
+        <span>
+          {{ transaction.type_label }}
+        </span>
+        <span>
+          {{ transaction.value }}
+        </span>
+        <span>
+          {{ transaction.date }}
+        </span>
+        <p v-if="transaction.description">
+          {{ transaction.description }}
+        </p>
+      </div>
+    </template>
+    <template v-else>
+      Não encontramos nenhum item...
+    </template>
+  </div>
+  <Withdraw v-model="show" />
+  <CollectDetails v-model="modalCollectDetails" />
 </template>
 
 <script>
+import Header from '@/components/Header.vue';
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import Avatar from 'primevue/avatar';
@@ -64,6 +57,7 @@ import api from '@/js/api.js'
 
 export default {
   components: {
+    Header,
     FloatLabel,
     InputText,
     Avatar,
@@ -76,13 +70,12 @@ export default {
   data: () => {
     return {
       show: false,
-      show2: false,
-      show3: false,
+      modalCollectDetails: false,
       email: null,
       password: null,
       balance: null,
       loading: false,
-      extracts: [],
+      transactions: [],
     }
   },
   computed: {
@@ -96,14 +89,14 @@ export default {
       this.loading = true
       api.get('extract')
         .then(({ data }) => {
-          this.extracts = data.extracts
+          this.transactions = data.transactions
           this.balance = data.balance
         })
         .catch(err => console.log('dd', err))
         .finally(() => this.loading = false)
     },
     appendExtract(collect) {
-      this.extracts.push(collect)
+      this.transactions.push(collect)
     }
   }
 }
