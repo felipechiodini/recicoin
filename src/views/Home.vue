@@ -13,16 +13,14 @@
       Solicitar Resgate
     </Button>
   </div>
-  <div class="d-flex mx-2 mb-3 mt-5">
+  <div class="d-flex mx-1 mb-3 mt-5">
     <h5>Resumo</h5>
   </div>
   <div class="d-flex flex-column gap-3 mx-4">
     <template v-if="transactions.length">
-      <div class="row align-items-center rounded border py-3 px-1" v-for="(transaction, key) in transactions" :key="key" @click="modalCollectDetails = true">
+      <div class="row align-items-center rounded border py-3 px-1" v-for="(transaction, key) in transactions" :key="key">
         <span>
-          {{ transaction.type_label }}
-        </span>
-        <span>
+          <i class="fas fa-coins"></i>
           {{ transaction.value }}
         </span>
         <span>
@@ -38,7 +36,6 @@
     </template>
   </div>
   <Withdraw v-model="show" />
-  <CollectDetails v-model="modalCollectDetails" />
 </template>
 
 <script>

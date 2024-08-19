@@ -1,29 +1,28 @@
 <template>
   <Header />
   <div class="p-3">
-    <div class="d-flex align-items-end">
+    <div class="d-flex align-items-end mb-3">
       <h5>Minhas Coletas</h5>
       <Button class="ms-auto" @click="openModalRequest()">
         Solicitar Coleta
       </Button>
     </div>
-    <div v-if="loading === false">
-      <div class="d-flex flex-column" v-for="(collect, key) in collects" :key="key">
-        <div>
-          {{ collect.id }}
-          {{ collect.status }}
-          {{ collect.requested_at }}
+    <div class="d-flex flex-column gap-3" v-if="loading === false">
+      <div class="border p-3 rounded" v-for="(collect, key) in collects || [{d: 'dwa'},{d: 'dwa'}]" :key="key">
+        <div class="d-flex justify-content-between">
+          <strong>{{ collect.id }}</strong>
+          <span>{{ collect.status }}</span>
+          <span>{{ collect.requested_at }}</span>
         </div>
-        <div>
-          <h6>Endereço</h6>
-          <div class="d-flex flex-column">
-            <span>{{ collect.address.cep }}</span>
-            <span>{{ collect.address.street }}</span>
-            <span>{{ collect.address.number }}</span>
-            <span>{{ collect.address.city }}</span>
-            <span>{{ collect.address.state }}</span>
-            <span>{{ collect.address.complement }}</span>
-          </div>
+        <hr>
+        <h6>Endereço</h6>
+        <div class="d-flex flex-column">
+          <span>{{ collect.address.cep }}</span>
+          <span>{{ collect.address.street }}</span>
+          <span>{{ collect.address.number }}</span>
+          <span>{{ collect.address.city }}</span>
+          <span>{{ collect.address.state }}</span>
+          <span>{{ collect.address.complement }}</span>
         </div>
       </div>
     </div>
