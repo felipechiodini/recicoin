@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       user: null,
+      addresses: null,
       token: null
     }
   },
@@ -23,6 +24,9 @@ export const useUserStore = defineStore('user', {
     },
     setUser(user) {
       this.user = user
+    },
+    setAddresses(addresses) {
+      this.addresses = addresses
     },
     logout(callback) {
       api.post('auth/logout').then(() => {
