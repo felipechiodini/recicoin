@@ -1,7 +1,12 @@
 <template>
   <Header />
   <div class="p-3">
-    <h5>Meus Endereços</h5>
+    <div class="d-flex align-items-end mb-3">
+      <h5>Meus Endereços</h5>
+      <Button class="ms-auto" @click="modal = true">
+        Novo Endereço
+      </Button>
+    </div>
     <div class="d-flex flex-column gap-3">
       <div class="border p-3" v-for="(address, key) in addresses" :key="key">
         <div class="d-flex flex-column">
@@ -14,19 +19,26 @@
       </div>
     </div>
   </div>
+  <NewAddress v-model="modal" />
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
+import Button from 'primevue/button'
+import NewAddress from '@/components/NewAddress.vue'
+import api from '@/js/api.js'
 
 export default {
   components: {
-    Header
+    Header,
+    Button,
+    NewAddress
   },
   data: () => {
     return {
       loading: false,
-      addresses: []
+      addresses: [],
+      modal: false
     }
   },
   mounted() {
