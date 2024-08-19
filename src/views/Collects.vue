@@ -8,7 +8,7 @@
       </Button>
     </div>
     <div class="d-flex flex-column gap-3" v-if="loading === false">
-      <div class="border p-3 rounded" v-for="(collect, key) in collects || [{d: 'dwa'},{d: 'dwa'}]" :key="key">
+      <div class="border p-3 rounded" v-for="(collect, key) in collects || [{d: 'dwa'},{d: 'dwa'}]" :key="key" @click="modalDetail = true">
         <div class="d-flex justify-content-between">
           <strong style="font-size: 1.5rem;">#{{ collect.id }}</strong>
           <span>{{ collect.status }}</span>
@@ -28,6 +28,7 @@
     </div>
     <span v-else>Carregando...</span>
     <RequestCollect v-model="kkkkkkkk" />
+    <CollectDetails v-model="modalDetail" />
   </div>
 </template>
 
@@ -35,6 +36,7 @@
 import Header from '@/components/Header.vue'
 import RequestCollect from '@/components/RequestCollect.vue'
 import Button from 'primevue/button'
+import CollectDetails from '@/components/CollectDetails.vue'
 import Api from '@/js/api.js'
 
 export default {
@@ -42,11 +44,13 @@ export default {
     Header,
     RequestCollect,
     Button,
+    CollectDetails
   },
   data: () => {
     return {
       loading: false,
       collects: [],
+      modalDetail: false,
       kkkkkkkk: false
     }
   },
