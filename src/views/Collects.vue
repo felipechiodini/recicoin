@@ -10,7 +10,7 @@
     <div class="d-flex flex-column gap-3" v-if="loading === false">
       <div class="border p-3 rounded" v-for="(collect, key) in collects || [{d: 'dwa'},{d: 'dwa'}]" :key="key">
         <div class="d-flex justify-content-between">
-          <strong>{{ collect.id }}</strong>
+          <strong style="font-size: 1.5rem;">#{{ collect.id }}</strong>
           <span>{{ collect.status }}</span>
           <span>{{ collect.requested_at }}</span>
         </div>
