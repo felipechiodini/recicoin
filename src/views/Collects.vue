@@ -8,7 +8,7 @@
       </Button>
     </div>
     <div class="d-flex flex-column gap-3" v-if="loading === false">
-      <div class="border p-3 rounded" v-for="(collect, key) in collects || [{d: 'dwa'},{d: 'dwa'}]" :key="key" @click="modalDetail = true">
+      <div class="border p-3 rounded" v-for="(collect, key) in collects || [{d: 'dwa'},{d: 'dwa'}]" :key="key" @click="openDetails(collect)">
         <div class="d-flex justify-content-between">
           <strong style="font-size: 1.5rem;">#{{ collect.id }}</strong>
           <span>{{ collect.status }}</span>
@@ -50,7 +50,7 @@ export default {
     return {
       loading: false,
       collects: [],
-      modalDetail: false,
+      modalDetail: null,
       kkkkkkkk: false
     }
   },
@@ -62,11 +62,13 @@ export default {
       this.loading = true
       Api.get('collect')
         .then(({ data }) => this.collects = data.collects)
-        .catch(err => console.log('erro', err))
         .finally(() => this.loading = false)
     },
     openModalRequest() {
       this.kkkkkkkk = true
+    },
+    openDetails(collect) {
+      this.modalDetail = collect.id
     }
   }
 }
