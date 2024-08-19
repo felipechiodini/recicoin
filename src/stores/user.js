@@ -14,11 +14,7 @@ export const useUserStore = defineStore('user', {
       return state.user?.name.split(' ')[0]
     },
     addresses(state) {
-      return [
-        { id: 1, city: 'São Paulo' },
-        { id: 2, city: 'Santa Catarina' },
-      ]
-      // return state.addresses
+      return state.user?.addresses || []
     }
   },
   actions: {

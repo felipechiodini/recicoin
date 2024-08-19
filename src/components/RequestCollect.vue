@@ -3,68 +3,22 @@
     <Button @click="close()" class="mb-3">
       <i class="pi pi-angle-left"></i>
     </Button>
-    <h1>Nova Coleta</h1>
-    <span>Selecione o endereço da coleta</span>
-
-    <Button size="small" @click="teste = true">
-      Novo Endereço
-    </Button>
-
+    <div class="d-flex align-items-center">
+      <h5 class="my-3">Nova Coleta</h5>
+    </div>
     <div class="d-flex flex-column my-3 border p-2" @click="selectAddress(address)" :class="{ 'active': isSelectedAddress(address) }" v-for="(address, key) in userAddresses" :key="key">
-      <span>Cidade: <strong>{{ address.city }}</strong></span>
+      <span>Cidade: <strong>{{ 'cidade' }}</strong></span>
       <span>Bairro: <strong>João Pessoa</strong></span>
       <span>Rua: <strong>Rua Hilda Brach Bauer</strong></span>
       <span>Número: <strong>421</strong></span>
       <span>Complemento: <strong>Geminado 01</strong></span>
     </div>
-
-    <span>Informe horário disponivel para coleta</span>
     <div>
-      <InputText  />
+      <InputText />
     </div>
     <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
       Confirmar
     </Button>
-
-
-    <Modal v-model="teste">
-      <div class="d-flex flex-column gap-2">
-        <div>
-          <label for="cep">CEP</label>
-          <InputText v-model="address.cep" />
-        </div>
-        <div>
-          <label for="street">Rua</label>
-          <InputText v-model="address.street" />
-        </div>
-        <div>
-          <label for="number">Número</label>
-          <InputText v-model="address.number" />
-        </div>
-        <div>
-          <label for="complement">Complemento</label>
-          <InputText v-model="address.complement" />
-        </div>
-        <div>
-          <label for="neighborhood">Bairro</label>
-          <InputText v-model="address.neighborhood" />
-        </div>
-        <div>
-          <label for="city">Cidade</label>
-          <InputText v-model="address.city" />
-        </div>
-        <div>
-          <label for="state">Estado</label>
-          <InputText v-model="address.state" />
-        </div>
-      </div>
-
-      <Button class="mt-3" @click="saveAddress()">
-        Criar endereço
-      </Button>
-    </Modal>
-
-    
   </div>
 </template>
 
@@ -74,6 +28,7 @@ import Button from 'primevue/button'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import api from '@/js/api.js'
+import { ErrorBag } from '@/js/error'
 import Modal from './Modal.vue'
 
 export default {
@@ -94,20 +49,13 @@ export default {
       show: true,
       loading: false,
       selectedAddressId: null,
+      errors: new ErrorBag(),
       buttons: [
         { value: 100 },
         { value: 300 },
         { value: 500 }
       ],
-      address: {
-        cep: null,
-        street: null,
-        number: null,
-        complement: null,
-        neighborhood: null,
-        city: null,
-        state: null,
-      }
+      address_id: null,
     }
   },
   computed: {
@@ -123,14 +71,32 @@ export default {
     selectAddress(address) {
       this.selectedAddressId = address.id
     },
-    onSubmit() {
-      this.loading = true
-      api.post('collect/request', { address_id: 1 })
-        .then(({ data }) => {
-          this.close()
-          this.$emit('success', data.collect)
-        })
-        .finally(() => this.loading = false)
+    validate() {
+      return new Promise((resolve, reject) => {
+        const errors = []
+
+        if (this.address_id === null) {
+          errors.push('Informe o endereço')
+        }
+
+        if (errors.length > 0) {
+          reject(errors)
+        }
+
+        resolve()
+      })
+    },
+    async onSubmit() {
+      try {
+        this.loading = true
+        await this.validate()
+        const { data } = await api.post('collect/request', { address_id: this.address_id })
+        this.close()
+        this.$emit('success', data.collect)
+      } catch (error) {
+        this.errors.record(error.response.data.errors)
+      }
+      this.loading = false
     },
     close() {
       this.$emit('update:modelValue', false)

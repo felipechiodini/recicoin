@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <h4>Coletas</h4>
+  <Header />
+  <div class="p-3">
+    <div class="d-flex align-items-end">
+      <h5>Minhas Coletas</h5>
+      <Button class="ms-auto" @click="openModalRequest()">
+        Solicitar Coleta
+      </Button>
+    </div>
     <div v-if="loading === false">
       <div class="d-flex flex-column" v-for="(collect, key) in collects" :key="key">
         <div>
@@ -22,20 +28,19 @@
       </div>
     </div>
     <span v-else>Carregando...</span>
-    <Button @click="openModalRequest()">
-      Solicitar Coleta
-    </Button>
     <RequestCollect v-model="kkkkkkkk" />
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 import RequestCollect from '@/components/RequestCollect.vue'
 import Button from 'primevue/button'
 import Api from '@/js/api.js'
 
 export default {
   components: {
+    Header,
     RequestCollect,
     Button,
   },

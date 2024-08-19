@@ -5,6 +5,9 @@
         <i class="pi pi-times"></i>
       </button>
       <div class="d-flex align-items-start flex-column gap-3">
+        <button class="dpawkdowpajdaowd" @click="goTo('home')">
+          Inicio
+        </button>
         <button class="dpawkdowpajdaowd" @click="goTo('profile')">
           Perfil
         </button>

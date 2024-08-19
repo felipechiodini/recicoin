@@ -3,7 +3,7 @@
     <button class="btn-open-sidebar" @click="$sidebar.open()">
       <i class="pi pi-bars"></i>
     </button>
-    <h3 class="m-0">
+    <h3 class="ms-2">
       Olá, {{ firstName }}
     </h3>
   </div>
@@ -25,7 +25,7 @@ export default {
 
   .dfpwoajfwafwpadjpwa {
     display: flex;
-    background-color: rgb(110, 43, 43);
+    padding: 1.5rem 1rem;
   }
 
   .btn-open-sidebar {
