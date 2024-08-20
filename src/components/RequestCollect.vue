@@ -6,16 +6,16 @@
     <div class="d-flex align-items-center">
       <h5 class="my-3">Nova Coleta</h5>
     </div>
-    <div class="d-flex flex-column my-3 border p-2" @click="selectAddress(address)" :class="{ 'active': isSelectedAddress(address) }" v-for="(address, key) in userAddresses" :key="key">
+    <div class="d-flex flex-column my-3 border rounded p-2" @click="selectAddress(address)" :class="{ 'active': isSelectedAddress(address) }" v-for="(address, key) in userAddresses" :key="key">
       <span>Cidade: <strong>{{ 'cidade' }}</strong></span>
       <span>Bairro: <strong>João Pessoa</strong></span>
       <span>Rua: <strong>Rua Hilda Brach Bauer</strong></span>
       <span>Número: <strong>421</strong></span>
       <span>Complemento: <strong>Geminado 01</strong></span>
     </div>
-    <div>
-      <InputText />
-    </div>
+
+    <span>{{ errors.get('address') }}</span>
+
     <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
       Confirmar
     </Button>
@@ -45,26 +45,16 @@ export default {
   data: () => {
     return {
       teste: false,
-      points: 0,
       show: true,
       loading: false,
       selectedAddressId: null,
       errors: new ErrorBag(),
-      buttons: [
-        { value: 100 },
-        { value: 300 },
-        { value: 500 }
-      ],
-      address_id: null,
     }
   },
   computed: {
     ...mapState(useUserStore, { userAddresses: 'addresses' })
   },
   methods: {
-    addPoints(quantity) {
-      this.points = parseInt(this.points) + parseInt(quantity)
-    },
     isSelectedAddress(address) {
       return this.selectedAddressId === address.id 
     },
@@ -73,13 +63,15 @@ export default {
     },
     validate() {
       return new Promise((resolve, reject) => {
-        const errors = []
+        const errors = {}
 
-        if (this.address_id === null) {
-          errors.push('Informe o endereço')
+        if (this.selectedAddressId === null) {
+          errors.address = [
+            'Selecione um endereço',
+          ]
         }
 
-        if (errors.length > 0) {
+        if (Object.keys(errors).length > 0) {
           reject(errors)
         }
 
@@ -87,14 +79,20 @@ export default {
       })
     },
     async onSubmit() {
+      this.loading = true
       try {
-        this.loading = true
         await this.validate()
-        const { data } = await api.post('collect/request', { address_id: this.address_id })
-        this.close()
-        this.$emit('success', data.collect)
+
+        try {
+          const { data } = await api.post('collect/request', { address_id: this.selectedAddressId })
+          this.close()
+          this.$emit('success', data.collect)
+        } catch (error) {
+          this.errors.record(error.response.data.errors)
+        }
       } catch (error) {
-        this.errors.record(error.response.data.errors)
+        console.log(error)
+        this.errors.record(error)
       }
       this.loading = false
     },
@@ -134,7 +132,7 @@ export default {
 
 
 .active {
-  background-color: aqua;
+  background-color: var(--p-emerald-500);
 }
 
 </style>

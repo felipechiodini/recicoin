@@ -1,39 +1,41 @@
 <template>
   <Header />
-  <div class="p-4 shadow-lg rounded mx-2 my-3 row">
-    <div class="col p-0">
-      <h6 class="m-0 waiohfwaiufhwa">
-        Saldo
-      </h6>
-      <span class="balance">
-        {{ balance }}
-      </span>
-    </div>
-    <Button @click="show = true" class="col-auto" size="small">
-      Solicitar Resgate
-    </Button>
-  </div>
-  <div class="d-flex mx-1 mb-3 mt-5">
-    <h5>Resumo</h5>
-  </div>
-  <div class="d-flex flex-column gap-3 mx-4">
-    <template v-if="transactions.length">
-      <div class="row align-items-center rounded border py-3 px-1" v-for="(transaction, key) in transactions" :key="key">
-        <span>
-          <i class="fas fa-coins"></i>
-          {{ transaction.value }}
+  <div class="p-3">
+    <div class="p-4 shadow-lg rounded mx-2 my-3 row">
+      <div class="col p-0">
+        <h6 class="m-0 waiohfwaiufhwa">
+          Saldo
+        </h6>
+        <span class="balance">
+          {{ balance }}
         </span>
-        <span>
-          {{ transaction.date }}
-        </span>
-        <p v-if="transaction.description">
-          {{ transaction.description }}
-        </p>
       </div>
-    </template>
-    <template v-else>
-      Não encontramos nenhum item...
-    </template>
+      <Button @click="show = true" class="col-auto" size="small">
+        Solicitar Resgate
+      </Button>
+    </div>
+    <div class="d-flex mx-1 mb-3 mt-5">
+      <h5>Resumo</h5>
+    </div>
+    <div class="d-flex flex-column gap-3 mx-4">
+      <template v-if="transactions.length">
+        <div class="row align-items-center rounded border py-3 px-1" v-for="(transaction, key) in transactions" :key="key">
+          <span>
+            <i class="fas fa-coins"></i>
+            {{ transaction.value }}
+          </span>
+          <span>
+            {{ transaction.date }}
+          </span>
+          <p v-if="transaction.description">
+            {{ transaction.description }}
+          </p>
+        </div>
+      </template>
+      <template v-else>
+        Não encontramos nenhum item...
+      </template>
+    </div>
   </div>
   <Withdraw v-model="show" />
 </template>

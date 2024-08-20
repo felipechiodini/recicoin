@@ -17,7 +17,7 @@ export class ErrorBag {
     }
 
     get(key) {
-        return this.errors[key].join(', ')
+        return this.errors[key]?.join(', ') || null
     }
 
     remove(key) {

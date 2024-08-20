@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useUserStore, ['setToken', 'setUser', 'setAddresses']),
+    ...mapActions(useUserStore, ['setToken', 'setUser']),
     onSubmit() {
       Api.get('csrf-cookie')
         .then(() => {
@@ -76,7 +76,6 @@ export default {
             .then(({ data }) => {
               this.setToken(data.token)
               this.setUser(data.user)
-              this.setAddresses(data.addresses)
               this.$router.push({ name: 'home' })
             })
             .catch((errors) => this.errors.record(errors.response.data))

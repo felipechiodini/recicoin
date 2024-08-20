@@ -61,18 +61,18 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.meta.requiresAuth) {
-//     const user = useUserStore()
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const user = useUserStore()
     
-//     if (user.token !== null) {
-//       next()
-//     } else {
-//       next({ name: 'login' })
-//     }
-//   } else {
-//     next()
-//   }
-// })
+    if (user.token !== null) {
+      next()
+    } else {
+      next({ name: 'login' })
+    }
+  } else {
+    next()
+  }
+})
 
 export default router

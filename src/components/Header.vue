@@ -3,7 +3,7 @@
     <button class="btn-open-sidebar" @click="$sidebar.open()">
       <i class="pi pi-bars"></i>
     </button>
-    <h3 class="ms-2">
+    <h3 class="ms-2 mb-0">
       Olá, {{ firstName }}
     </h3>
   </div>

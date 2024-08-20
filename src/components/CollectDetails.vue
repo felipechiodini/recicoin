@@ -5,13 +5,13 @@
         <i class="pi pi-angle-left"></i>
       </Button>
       <h3>Coleta: {{ modelValue }}</h3>
-      <div v-if="loading === false">
+      <!-- <div v-if="loading === false">
         <Timeline :value="collect.histories">
           <template #content="slotProps">
             {{ slotProps.item.type }}
           </template>
         </Timeline>
-      </div>
+      </div> -->
     </div>
   </Modal>
 </template>
@@ -36,12 +36,6 @@ export default {
     return {
       loading: false,
       collect: null,
-      events: [
-        { status: 'Solicitado' },
-        { status: 'Aguardando rota' },
-        { status: 'Rota definida' },
-        { status: 'Finalizado'  }
-      ]
     }
   },
   watch: {
@@ -53,7 +47,7 @@ export default {
   },
   computed: {
     open() {
-      return !!this.modelValue
+      return false
     }
   },
   methods: {
