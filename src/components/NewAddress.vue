@@ -4,16 +4,22 @@
       <h5>Preencha os dados</h5>
       <label for="cep">CEP</label>
       <InputText id="cep" v-model="form.cep" />
+      <small class="text-error">{{ errors.get('cep') }}</small>
       <label for="street">Rua</label>
       <InputText id="street" v-model="form.street" />
+      <small class="text-error">{{ errors.get('street') }}</small>
       <label for="district">Bairro</label>
       <InputText id="street" v-model="form.number" />
+      <small class="text-error">{{ errors.get('number') }}</small>
       <label for="district">Número</label>
       <InputText id="street" v-model="form.state" />
+      <small class="text-error">{{ errors.get('state') }}</small>
       <label for="district">Estado</label>
       <InputText id="district" v-model="form.neighborhood" />
+      <small class="text-error">{{ errors.get('neighborhood') }}</small>
       <label for="city">Cidade</label>
       <InputText id="city" v-model="form.city" />
+      <small class="text-error">{{ errors.get('city') }}</small>
       <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
         Cadastrar
       </Button>
@@ -28,6 +34,7 @@ import InputText from 'primevue/inputtext'
 import api from '@/js/api.js'
 import { mapState } from 'pinia';
 import { useUserStore } from '@/stores/user';
+import { ErrorBag } from '@/js/error';
 
 export default {
   components: {
@@ -43,6 +50,7 @@ export default {
   data: () => {
     return {
       loading: false,
+      errors: new ErrorBag(),
       form: {
         cep: null,
         street: null,
@@ -63,7 +71,10 @@ export default {
     onSubmit() {
       this.loading = true
       api.post('address', this.form)
-        .then(({ data }) => this.addresses.push(data.address))
+        .then(({ data }) => {
+          this.addresses.push(data.address)
+          this.$emit('update:modelValue', false)
+        })
         .finally(() => this.loading = false)
     }
   }

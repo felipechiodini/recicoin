@@ -4,6 +4,10 @@ export class ErrorBag {
         this.errors = {}
     }
 
+    all() {
+        return this.errors
+    }
+
     record(error) {
         this.errors = error
     }
