@@ -20,13 +20,12 @@
     <div class="d-flex flex-column gap-3 mx-4">
       <template v-if="transactions.length">
         <div class="row align-items-center rounded border py-3 px-1" v-for="(transaction, key) in transactions" :key="key">
-          <span>
-            <i class="fas fa-coins"></i>
-            {{ transaction.value }}
-          </span>
-          <span>
-            {{ transaction.date }}
-          </span>
+          <div class="d-flex gap-1 align-items-center">
+            <span class="pi pi-money-bill" :class="{ 'text-success': transaction.type === 'input', 'text-danger': transaction.type === 'output' }"></span>
+            <span>{{ transaction.type_label }}</span>
+          </div>
+          <span>{{ transaction.value }}</span>
+          <span>{{ transaction.date }}</span>
           <p v-if="transaction.description">
             {{ transaction.description }}
           </p>
