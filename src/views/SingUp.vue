@@ -9,27 +9,27 @@
       <div>
         <label for="name">Nome</label>
         <InputText id="name" type="text" v-model="name" />
-        <Message v-if="errors.has('name')" severity="error">{{ errors.get('name') }}</Message>
+        <small class="text-danger" v-if="errors.has('name')" severity="error">{{ errors.get('name') }}</small>
       </div>
       <div>
         <label for="email">Email</label>
         <InputText id="email" type="email" v-model="email" />
-        <Message v-if="errors.has('email')" severity="error">{{ errors.get('email') }}</Message>
+        <small class="text-danger" v-if="errors.has('email')" severity="error">{{ errors.get('email') }}</small>
       </div>
       <div>
         <label for="cpf">CPF</label>
         <InputText id="cpf" type="text" v-model="document" v-maska="'###.###.###-##'" />
-        <Message v-if="errors.has('document')" severity="error">{{ errors.get('document') }}</Message>
+        <small class="text-danger" v-if="errors.has('document')" severity="error">{{ errors.get('document') }}</small>
       </div>
       <div>
         <label for="celular">Celular</label>
         <InputText id="celular" type="text" v-model="cellphone" v-maska="'(##) #####-####'" />
-        <Message v-if="errors.has('cellphone')" severity="error">{{ errors.get('cellphone') }}</Message>
+        <small class="text-danger" v-if="errors.has('cellphone')" severity="error">{{ errors.get('cellphone') }}</small>
       </div>
       <div>
         <label for="senha">Senha</label>
         <InputText id="senha" type="password" v-model="password" />
-        <Message v-if="errors.has('password')" severity="error">{{ errors.get('password') }}</Message>
+        <small class="text-danger" v-if="errors.has('password')" severity="error">{{ errors.get('password') }}</small>
       </div>
       <Button type="submit" :loading="loading">
         Cadastrar
