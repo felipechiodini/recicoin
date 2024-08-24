@@ -24,7 +24,7 @@ export const useUserStore = defineStore('user', {
     logout(callback) {
       api.post('auth/logout').then(() => {
         localStorage.clear()
-        Router.push({ name: 'auth.login' })
+        Router.push({ name: 'sing-in' })
         callback(false)
       })
     }

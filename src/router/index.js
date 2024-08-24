@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
     if (user.token !== null) {
       next()
     } else {
-      next({ name: 'login' })
+      next({ name: 'sing-in' })
     }
   } else {
     next()

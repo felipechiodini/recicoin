@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(config => {
 axiosInstance.interceptors.response.use(null, (error) => {
   if (error?.response?.status === 401) {
     localStorage.removeItem('user')
-    router.push({ name: 'login' })
+    router.push({ name: 'sing-in' })
   }
   return Promise.reject(error)
 })
