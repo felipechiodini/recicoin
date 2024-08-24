@@ -19,18 +19,23 @@
       </div>
       <div>
         <label for="district">Bairro</label>
+        <InputText id="street" v-model="form.neighborhood" />
+        <small class="text-error">{{ errors.get('neighborhood') }}</small>
+      </div>
+      <div>
+        <label for="district">Número</label>
         <InputText id="street" v-model="form.number" />
         <small class="text-error">{{ errors.get('number') }}</small>
       </div>
       <div>
-        <label for="district">Número</label>
-        <InputText id="street" v-model="form.state" />
-        <small class="text-error">{{ errors.get('state') }}</small>
+        <label for="complement">Complemento</label>
+        <InputText id="complement" v-model="form.complement" />
+        <small class="text-error">{{ errors.get('complement') }}</small>
       </div>
       <div>
         <label for="district">Estado</label>
-        <InputText id="district" v-model="form.neighborhood" />
-        <small class="text-error">{{ errors.get('neighborhood') }}</small>
+        <InputText id="district" v-model="form.state" />
+        <small class="text-error">{{ errors.get('state') }}</small>
       </div>
       <div>
         <label for="city">Cidade</label>
@@ -49,9 +54,9 @@ import Modal from '@/components/Modal.vue'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import api from '@/js/api.js'
-import { mapState } from 'pinia';
-import { useUserStore } from '@/stores/user';
-import { ErrorBag } from '@/js/error';
+import { mapState } from 'pinia'
+import { useUserStore } from '@/stores/user'
+import { ErrorBag } from '@/js/error'
 
 export default {
   components: {
@@ -72,6 +77,7 @@ export default {
         cep: null,
         street: null,
         number: null,
+        complement: null,
         neighborhood: null,
         city: null,
         state: null
