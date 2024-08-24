@@ -29,7 +29,7 @@
           </RouterLink>
         </div>
         <div>
-          <RouterLink :to="{ name: 'register' }">
+          <RouterLink :to="{ name: 'sing-up' }">
             Criar Conta
           </RouterLink>
         </div>

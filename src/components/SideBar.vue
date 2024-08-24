@@ -20,6 +20,9 @@
         <button class="dpawkdowpajdaowd" @click="goTo('withdrawals')">
           Saques
         </button>
+        <button class="dpawkdowpajdaowd" @click="logout()">
+          Sair
+        </button>
       </div>
     </div>
   </div>
@@ -31,6 +34,10 @@ export default {
     goTo(name) {
       this.$router.push({ name })
       this.$sidebar.close()
+    },
+    logout() {
+      this.$router.push({ name: 'sing-in' })
+      localStorage.clear()
     }
   }
 }

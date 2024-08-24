@@ -40,7 +40,7 @@ const router = createRouter({
     },
     {
       path: '/entrar',
-      name: 'login',
+      name: 'sing-in',
       component: () => import('@/views/Enter.vue'),
     },
     {
@@ -50,7 +50,7 @@ const router = createRouter({
     },
     {
       path: '/cadastro',
-      name: 'register',
+      name: 'sing-up',
       component: () => import('@/views/SingUp.vue')
     },
     {

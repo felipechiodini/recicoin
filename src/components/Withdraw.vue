@@ -39,7 +39,6 @@ export default {
   data: () => {
     return {
       value: 0,
-      show: true,
       loading: false,
       errors: new ErrorBag(),
       buttons: [
@@ -76,23 +75,3 @@ export default {
 
 
 </script>
-
-<style scoped>
-
-.model {
-  display: none;
-  position: fixed;
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  transition: all 1s;
-}
-
-.model.show {
-  display: block;
-}
-
-</style>

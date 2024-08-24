@@ -6,16 +6,12 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       user: null,
-      addresses: null,
       token: null
     }
   },
   getters: {
     firstName(state) {
       return state.user?.name.split(' ')[0]
-    },
-    addresses(state) {
-      return state.user?.addresses || []
     }
   },
   actions: {
@@ -24,9 +20,6 @@ export const useUserStore = defineStore('user', {
     },
     setUser(user) {
       this.user = user
-    },
-    setAddresses(addresses) {
-      this.addresses = addresses
     },
     logout(callback) {
       api.post('auth/logout').then(() => {
