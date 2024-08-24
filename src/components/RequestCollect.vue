@@ -4,18 +4,20 @@
       <i class="pi pi-angle-left"></i>
     </Button>
     <div class="d-flex align-items-center">
-      <h5 class="my-3">Nova Coleta</h5>
+      <h5 class="m-0">Nova Coleta</h5>
     </div>
-    <div class="d-flex flex-column my-3 border rounded p-2" @click="selectAddress(address)" :class="{ 'active': isSelectedAddress(address) }" v-for="(address, key) in userAddresses" :key="key">
-      <span>Cidade: <strong>{{ 'cidade' }}</strong></span>
-      <span>Bairro: <strong>João Pessoa</strong></span>
-      <span>Rua: <strong>Rua Hilda Brach Bauer</strong></span>
-      <span>Número: <strong>421</strong></span>
-      <span>Complemento: <strong>Geminado 01</strong></span>
+    <hr class="mt-1">
+    <h6>Selecione o endereço da coleta</h6>
+    <div class="d-flex flex-column gap-3">
+      <div class="d-flex flex-column border rounded p-2" @click="selectAddress(address)" :class="{ 'active': isSelectedAddress(address) }" v-for="(address, key) in addresses" :key="key">
+        <span>{{ address.street }}</span>
+        <span>{{ address.number }}</span>
+        <span>{{ address.neighborhood }}</span>
+        <span>{{ address.complement }}</span>
+        <span>{{ address.city }}, {{ address.state }}</span>
+      </div>
     </div>
-
     <span>{{ errors.get('address') }}</span>
-
     <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
       Confirmar
     </Button>
@@ -49,12 +51,19 @@ export default {
       loading: false,
       selectedAddressId: null,
       errors: new ErrorBag(),
+      addresses: []
     }
   },
-  computed: {
-    ...mapState(useUserStore, { userAddresses: 'addresses' })
+  mounted() {
+    this.loadAddresses()
   },
   methods: {
+    loadAddresses() {
+      api.get('address')
+        .then(({ data }) => {
+          this.addresses = data.addresses
+        })
+    },
     isSelectedAddress(address) {
       return this.selectedAddressId === address.id 
     },
@@ -130,9 +139,8 @@ export default {
   display: block;
 }
 
-
 .active {
-  background-color: var(--p-emerald-500);
+  box-shadow: 1px 1px 5px 1px #ccc;
 }
 
 </style>
