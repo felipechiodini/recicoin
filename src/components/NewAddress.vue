@@ -2,24 +2,36 @@
   <Modal v-model="modalVisible">
     <div class="p-3">
       <h5>Preencha os dados</h5>
-      <label for="cep">CEP</label>
-      <InputText id="cep" v-model="form.cep" />
-      <small class="text-error">{{ errors.get('cep') }}</small>
-      <label for="street">Rua</label>
-      <InputText id="street" v-model="form.street" />
-      <small class="text-error">{{ errors.get('street') }}</small>
-      <label for="district">Bairro</label>
-      <InputText id="street" v-model="form.number" />
-      <small class="text-error">{{ errors.get('number') }}</small>
-      <label for="district">Número</label>
-      <InputText id="street" v-model="form.state" />
-      <small class="text-error">{{ errors.get('state') }}</small>
-      <label for="district">Estado</label>
-      <InputText id="district" v-model="form.neighborhood" />
-      <small class="text-error">{{ errors.get('neighborhood') }}</small>
-      <label for="city">Cidade</label>
-      <InputText id="city" v-model="form.city" />
-      <small class="text-error">{{ errors.get('city') }}</small>
+      <div>
+        <label for="cep">CEP</label>
+        <InputText id="cep" v-model="form.cep" v-maska="'#####-###'" />
+        <small class="text-error">{{ errors.get('cep') }}</small>
+      </div>
+      <div>
+        <label for="street">Rua</label>
+        <InputText id="street" v-model="form.street" />
+        <small class="text-error">{{ errors.get('street') }}</small>
+      </div>
+      <div>
+        <label for="district">Bairro</label>
+        <InputText id="street" v-model="form.number" />
+        <small class="text-error">{{ errors.get('number') }}</small>
+      </div>
+      <div>
+        <label for="district">Número</label>
+        <InputText id="street" v-model="form.state" />
+        <small class="text-error">{{ errors.get('state') }}</small>
+      </div>
+      <div>
+        <label for="district">Estado</label>
+        <InputText id="district" v-model="form.neighborhood" />
+        <small class="text-error">{{ errors.get('neighborhood') }}</small>
+      </div>
+      <div>
+        <label for="city">Cidade</label>
+        <InputText id="city" v-model="form.city" />
+        <small class="text-error">{{ errors.get('city') }}</small>
+      </div>
       <Button class="w-100 mt-3" @click="onSubmit()" :loading="loading">
         Cadastrar
       </Button>
@@ -75,6 +87,7 @@ export default {
           this.addresses.push(data.address)
           this.$emit('update:modelValue', false)
         })
+        .catch((errors) => this.errors.record(errors.response.data.errors))
         .finally(() => this.loading = false)
     }
   }
