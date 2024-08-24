@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/entrar',
       name: 'sing-in',
-      component: () => import('@/views/Enter.vue'),
+      component: () => import('@/views/SingIn.vue'),
     },
     {
       path: '/esqueci-minha-senha',
@@ -52,11 +52,6 @@ const router = createRouter({
       path: '/cadastro',
       name: 'sing-up',
       component: () => import('@/views/SingUp.vue')
-    },
-    {
-      path: '/0bdf4fbe5d9bd73ffe355f9c9127b17c73968169dee40c99af1f0ef221eab9589182d7b3ce3bdd7a88f65ce2780d93c3692d53fcd9bdcb9cc9cfda73f09d30b3',
-      name: 'admin',
-      component: () => import('@/views/Admin.vue')
     }
   ]
 })
