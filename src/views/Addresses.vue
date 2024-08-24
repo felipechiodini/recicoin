@@ -8,7 +8,7 @@
       </Button>
     </div>
     <div class="d-flex flex-column gap-3">
-      <div class="border p-3" v-for="(address, key) in addresses" :key="key">
+      <div class="border rounded p-3" v-for="(address, key) in addresses" :key="key">
         <div class="d-flex flex-column">
           <span>{{ address.cep }}</span>
           <span>{{ address.street }}</span>
@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <NewAddress v-model="modal" />
+  <NewAddress v-model="modal" @click="load()" />
 </template>
 
 <script>

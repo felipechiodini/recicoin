@@ -1,5 +1,10 @@
 <template>
   <Modal v-model="modalVisible">
+    <div>
+      <button class="btn-close" @click="close()">
+        X
+      </button>
+    </div>
     <div class="p-3">
       <h5>Preencha os dados</h5>
       <div>
@@ -85,12 +90,27 @@ export default {
       api.post('address', this.form)
         .then(({ data }) => {
           this.addresses.push(data.address)
-          this.$emit('update:modelValue', false)
+          this.close()
+          this.$emit('success')
         })
         .catch((errors) => this.errors.record(errors.response.data.errors))
         .finally(() => this.loading = false)
+    },
+    close() {
+      this.$emit('update:modelValue', false)
     }
   }
 }
 
 </script>
+
+
+<style scoped>
+
+.btn-close {
+  border: none;
+  background-color: transparent;
+}
+
+
+</style>
