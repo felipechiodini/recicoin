@@ -39,19 +39,28 @@ const router = createRouter({
       ]
     },
     {
-      path: '/entrar',
-      name: 'sing-in',
-      component: () => import('@/views/SingIn.vue'),
-    },
-    {
-      path: '/esqueci-minha-senha',
-      name: 'forget-password',
-      component: () => import('@/views/ForgetPassword.vue')
-    },
-    {
-      path: '/cadastro',
-      name: 'sing-up',
-      component: () => import('@/views/SingUp.vue')
+      path: '/',
+      component: () => import('@/layouts/Guest.vue'),
+      meta: {
+        onlyGuest: true
+      },
+      children: [
+        {
+          path: '/entrar',
+          name: 'sing-in',
+          component: () => import('@/views/SingIn.vue'),
+        },
+        {
+          path: '/esqueci-minha-senha',
+          name: 'forget-password',
+          component: () => import('@/views/ForgetPassword.vue')
+        },
+        {
+          path: '/cadastro',
+          name: 'sing-up',
+          component: () => import('@/views/SingUp.vue')
+        }
+      ]
     }
   ]
 })
@@ -65,8 +74,12 @@ router.beforeEach((to, from, next) => {
     } else {
       next({ name: 'sing-in' })
     }
-  } else {
-    next()
+  } else if (to.meta.onlyGuest) {
+    if (useUserStore().token !== null) {
+      next({ name: 'home' })
+    } else {
+      next()
+    }
   }
 })
 

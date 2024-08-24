@@ -9,12 +9,12 @@
         <div>
           <label for="email">Email</label>
           <InputText id="email" type="text" v-model="email" />
-          <Message v-if="errors.has('email')" severity="error">{{ errors.get('email') }}</Message>
+          <small class="text-danger" v-if="errors.has('email')" severity="error">{{ errors.get('email') }}</small>
         </div>
         <div>
           <label for="senha">Senha</label>
           <InputText id="senha" type="password" v-model="password" />
-          <Message v-if="errors.has('password')" severity="error">{{ errors.get('password') }}</Message>
+          <small class="text-danger" v-if="errors.has('password')" severity="error">{{ errors.get('password') }}</small>
         </div>
         <div class="d-flex flex-column">
           <Button type="submit" :loading="loading">
@@ -78,7 +78,7 @@ export default {
               this.setUser(data.user)
               this.$router.push({ name: 'home' })
             })
-            .catch((errors) => this.errors.record(errors.response.data))
+            .catch((errors) => this.errors.record(errors.response.data.errors))
             .finally(() => this.loading = false)
       })
     }

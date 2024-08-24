@@ -35,9 +35,9 @@ export default {
       this.$router.push({ name })
       this.$sidebar.close()
     },
-    logout() {
-      this.$router.push({ name: 'sing-in' })
+    async logout() {
       localStorage.clear()
+      location.reload()
     }
   }
 }

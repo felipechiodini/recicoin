@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="text-center mt-5">
+  <div class="container p-3">
+    <div class="text-center">
       <Logo />
     </div>
     <h5 class="mt-2">Criar minha conta</h5>
